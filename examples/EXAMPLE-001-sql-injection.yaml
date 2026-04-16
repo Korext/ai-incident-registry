@@ -1,0 +1,50 @@
+schema: https://oss.korext.com/incidents/schema
+version: "1.0"
+identifier: EXAMPLE-001
+status: published
+
+title: "SQL injection in AI generated query builder using string concatenation"
+summary: |
+  An AI coding tool generated a user search function that concatenated user input into a SQL WHERE clause without parameterization. The vulnerable code passed code review and was deployed to production. Exploitation occurred within 72 hours.
+severity: high
+
+discovered_date: '2026-02-03'
+ai_tool:
+  name: GitHub Copilot
+  version: "1.145"
+
+affected_pattern:
+  language: JavaScript
+  framework: Node.js
+  libraries: ["mysql", "express"]
+  cwe_references: ["CWE-89"]
+  pattern_type: injection
+
+prompt_context:
+  intent: "build user search function"
+  context_provided: minimal
+
+incorrect_pattern: |
+  const query = `SELECT * FROM users WHERE name = '${name}'`;
+  connection.query(query, callback);
+
+correct_pattern: |
+  const query = 'SELECT * FROM users WHERE name = ?';
+  connection.query(query, [name], callback);
+
+impact:
+  confirmed_exploitations: 12
+  estimated_impact_usd: 4000000
+  affected_organizations: 8
+  public_disclosure: 'yes'
+
+detection:
+  korext_packs: ["web-security"]
+  korext_rule_ids: ["sqli-string-concat-001"]
+
+remediation:
+  short_term: "Parameterize all SQL queries in user facing endpoints"
+  long_term: "Adopt an ORM or query builder that enforces parameterization"
+
+reporter:
+  verified: true

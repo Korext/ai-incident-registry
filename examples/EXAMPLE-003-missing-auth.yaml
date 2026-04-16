@@ -1,0 +1,40 @@
+schema: https://oss.korext.com/incidents/schema
+version: "1.0"
+identifier: EXAMPLE-003
+status: published
+
+title: "Missing authorization check in generated Fastify admin route"
+summary: |
+  When asked to scaffold a new admin dashboard route, the AI generated the route correctly but completely omitted the `onRequest: [requireAdmin]` hook present in surrounding routes, resulting in unauthenticated access to admin APIs.
+severity: critical
+
+discovered_date: '2026-04-01'
+ai_tool:
+  name: Cursor
+  version: "0.45"
+
+affected_pattern:
+  language: TypeScript
+  framework: Fastify
+  pattern_type: authorization
+
+incorrect_pattern: |
+  fastify.get('/admin/stats', async (request, reply) => {
+    return { users: await db.users.count() };
+  });
+
+correct_pattern: |
+  fastify.get('/admin/stats', { onRequest: [requireAdmin] }, async (request, reply) => {
+    return { users: await db.users.count() };
+  });
+
+impact:
+  confirmed_exploitations: 1
+  public_disclosure: 'yes'
+
+detection:
+  korext_packs: ["api-security"]
+  korext_rule_ids: ["fastify-missing-auth-hook"]
+
+reporter:
+  verified: true

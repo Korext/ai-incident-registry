@@ -1,0 +1,38 @@
+schema: https://oss.korext.com/incidents/schema
+version: "1.0"
+identifier: EXAMPLE-005
+status: published
+
+title: "Introduction of deprecated 'request' library in new microservice"
+summary: |
+  While writing a new Go to Node.js proxy service, the AI assistant hallucinated the usage of the completely deprecated `request` npm package instead of modern `fetch` or `axios`. This introduced 14 legacy vulnerabilities from deep sub-dependencies into a fresh environment.
+severity: medium
+
+discovered_date: '2026-01-15'
+ai_tool:
+  name: ChatGPT
+  version: "GPT-4"
+
+affected_pattern:
+  language: JavaScript
+  framework: Node.js
+  libraries: ["request"]
+  pattern_type: dependency
+
+incorrect_pattern: |
+  const request = require('request');
+  request('https://api.example.com', function (error, response, body) { ... });
+
+correct_pattern: |
+  const response = await fetch('https://api.example.com');
+  const body = await response.text();
+
+impact:
+  public_disclosure: 'yes'
+
+detection:
+  korext_packs: ["nodejs-modernization"]
+  korext_rule_ids: ["no-deprecated-request"]
+
+reporter:
+  verified: true

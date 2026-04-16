@@ -1,0 +1,46 @@
+{
+  "name": "@korext/incident-report",
+  "version": "1.0.0",
+  "description": "CLI for drafting and submitting AI code incident reports to the public registry at oss.korext.com/incidents.",
+  "keywords": [
+    "ai",
+    "incident",
+    "security",
+    "vulnerability",
+    "disclosure",
+    "registry",
+    "copilot",
+    "cursor",
+    "claude-code",
+    "compliance",
+    "audit"
+  ],
+  "author": "Korext <tombruno@korext.com> (https://korext.com)",
+  "license": "Apache-2.0",
+  "homepage": "https://oss.korext.com/incidents",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/korext/ai-incident-registry"
+  },
+  "bugs": {
+    "url": "https://github.com/korext/ai-incident-registry/issues"
+  },
+  "bin": {
+    "incident-report": "./bin/incident-report.js"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "LICENSE",
+    "LICENSE-SPEC",
+    "LICENSE-DATA",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0",
+    "marked": "^12.0.0"
+  }
+}

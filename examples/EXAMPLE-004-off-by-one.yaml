@@ -1,0 +1,39 @@
+schema: https://oss.korext.com/incidents/schema
+version: "1.0"
+identifier: EXAMPLE-004
+status: published
+
+title: "Off-by-one error in generated batch processing loop"
+summary: |
+  An AI generated snippet for chunking a large array off by one, causing the last element of every batch to be dropped. This led to silent data loss over several weeks before being noticed in reconciliation reports.
+severity: high
+
+discovered_date: '2026-03-20'
+ai_tool:
+  name: GitHub Copilot
+  version: "Unknown"
+
+affected_pattern:
+  language: Python
+  pattern_type: logic
+
+incorrect_pattern: |
+  def get_batches(items, size):
+      for i in range(0, len(items), size):
+          yield items[i:i+size-1]
+
+correct_pattern: |
+  def get_batches(items, size):
+      for i in range(0, len(items), size):
+          yield items[i:i+size]
+
+impact:
+  affected_organizations: 1
+  public_disclosure: 'partial'
+
+detection:
+  korext_packs: ["python-logic"]
+  korext_rule_ids: ["python-slice-off-by-one"]
+
+reporter:
+  verified: true

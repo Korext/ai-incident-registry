@@ -1,0 +1,41 @@
+schema: https://oss.korext.com/incidents/schema
+version: "1.0"
+identifier: EXAMPLE-002
+status: published
+
+title: "Hallucinated AWS endpoint in S3 upload utility"
+summary: |
+  An AI assistant generated an AWS SDK v3 upload function that referenced a non-existent method `S3Client.uploadStream()`. It passed type checking due to a broad `any` cast, but failed immediately in production data pipelines.
+severity: medium
+
+discovered_date: '2026-03-12'
+ai_tool:
+  name: Claude Code
+  version: "1.0.0"
+
+affected_pattern:
+  language: TypeScript
+  framework: Node.js
+  libraries: ["@aws-sdk/client-s3"]
+  pattern_type: hallucination
+
+incorrect_pattern: |
+  const client = new S3Client({ region: "us-east-1" });
+  await (client as any).uploadStream({ Bucket: b, Key: k, Body: s });
+
+correct_pattern: |
+  import { Upload } from "@aws-sdk/lib-storage";
+  const client = new S3Client({ region: "us-east-1" });
+  const upload = new Upload({ client, params: { Bucket: b, Key: k, Body: s } });
+  await upload.done();
+
+impact:
+  confirmed_exploitations: 0
+  public_disclosure: 'no'
+
+detection:
+  korext_packs: ["typescript-strict"]
+  korext_rule_ids: ["hallucination-aws-s3-uploadstream"]
+
+reporter:
+  verified: true
