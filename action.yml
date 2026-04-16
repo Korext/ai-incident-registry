@@ -1,0 +1,33 @@
+name: 'AI Incident Pattern Scan'
+description: 'Scan code for patterns matching reported AI code incidents'
+author: 'Korext'
+
+branding:
+  icon: 'alert-triangle'
+    color: 'red'
+
+    inputs:
+      severity-threshold:
+          description: 'Minimum severity to alert on'
+              required: false
+                  default: 'medium'
+                    scan-recent-days:
+                        description: 'Scan incidents reported in the last N days'
+                            required: false
+                                default: '90'
+                                  fail-on-match:
+                                      description: 'Fail the build if any matching pattern found'
+                                          required: false
+                                              default: 'false'
+
+                                              outputs:
+                                                matches-found:
+                                                    description: 'Number of matching patterns detected'
+                                                      incident-ids:
+                                                          description: 'Comma separated AICI identifiers matched'
+                                                            status:
+                                                                description: 'PASS or WARN or FAIL'
+
+                                                                runs:
+                                                                  using: 'node20'
+                                                                    main: 'action/index.js'
