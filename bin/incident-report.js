@@ -285,7 +285,7 @@ if (args.includes('--version') || args.includes('-v')) {
 
 if (args.includes('--help') || args.includes('-h') || !cmd) {
   console.log(`
-  \x1b[1m@korext/incident-report\x1b[0m v1.0.0
+  \x1b[1m@korext/incident-report\x1b[0m v1.0.1
 
   The CLI for the AI Incident Registry.
   Report, validate, and browse AI code incidents.
