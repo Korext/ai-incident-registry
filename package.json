@@ -1,6 +1,6 @@
 {
   "name": "@korext/incident-report",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "CLI for drafting and submitting AI code incident reports to the public registry at oss.korext.com/incidents.",
   "keywords": [
     "ai",
