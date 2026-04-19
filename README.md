@@ -107,6 +107,19 @@ To propose a new pattern type, submit a PR to SPEC.md.
 
 To become a registry reviewer, contact [maintainers@korext.com](mailto:maintainers@korext.com).
 
+## Related Projects
+
+| Project | Description |
+|---------|-------------|
+| [AI Attestation](https://github.com/korext/ai-attestation) | Track AI generated code in your repository |
+| [AI License Notice](https://github.com/korext/ai-license) | Declare AI provenance in open source projects |
+| [Supply Chain Attestation](https://github.com/korext/supply-chain-attestation) | AI provenance across your dependency tree |
+| [AI Regression Database](https://github.com/korext/ai-regression-database) | Patterns AI tools consistently get wrong |
+| [AI Code Radar](https://github.com/korext/ai-code-radar) | Live AI code adoption data across open source |
+| [Commit Carbon](https://github.com/korext/commit-carbon) | Carbon footprint of AI assisted commits |
+
+---
+
 ## Built by
 
 [Korext](https://korext.com) builds AI code governance tools. AI Incident Registry is an open community resource maintained by the Korext team.
